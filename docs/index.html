@@ -1,536 +1,407 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Will you be my Valentine? 💕</title>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        :root {
-            --primary-pink: #ff69b4;
-            --secondary-pink: #ffb6c1;
-            --dark-pink: #ff1493;
-            --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+        :root{
+            --primary-pink:#ff69b4;
+            --secondary-pink:#ffb6c1;
+            --dark-pink:#ff1493;
+            --bg-gradient: linear-gradient(135deg,#ffeef8 0%,#ffe0f0 100%);
             --safe-area-top: env(safe-area-inset-top, 0px);
             --safe-area-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: calc(20px + var(--safe-area-top)) 20px calc(20px + var(--safe-area-bottom)) 20px;
-            overflow-x: hidden;
-            position: relative;
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+            background:var(--bg-gradient);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            padding: calc(26px + var(--safe-area-top)) 18px calc(26px + var(--safe-area-bottom)) 18px;
+            overflow-x:hidden;
+            position:relative;
         }
 
-        /* Floating hearts background animation */
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+        /* Floating hearts background */
+        .floating-hearts{
+            position:fixed; inset:0;
+            pointer-events:none;
+            z-index:0; overflow:hidden;
         }
-
-        .heart-bg {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0.15;
+        .heart-bg{
+            position:absolute;
+            font-size:20px;
+            opacity:0.15;
             animation: float-up 15s infinite ease-in-out;
         }
-
-        @keyframes float-up {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.15;
-            }
-            90% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+        @keyframes float-up{
+            0%{ transform:translateY(100vh) rotate(0deg); opacity:0; }
+            10%{ opacity:0.15; }
+            90%{ opacity:0.15; }
+            100%{ transform:translateY(-100px) rotate(360deg); opacity:0; }
         }
 
         /* Main container */
-        .container {
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+        .container{
+            max-width: 560px;
+            width:100%;
+            text-align:center;
+            position:relative;
+            z-index:1;
             animation: fadeIn 0.8s ease-out;
         }
+        @keyframes fadeIn{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Title */
-        h1 {
-            font-size: clamp(28px, 7vw, 42px);
+        h1{
+            font-size: clamp(34px, 8.5vw, 52px);
+            line-height: 1.1;
             color: var(--dark-pink);
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+            margin-bottom: 22px;
+            text-shadow: 2px 2px 4px rgba(255,105,180,0.2);
             animation: heartbeat 1.5s ease-in-out infinite;
+            padding: 0 6px;
+        }
+        @keyframes heartbeat{
+            0%,100%{transform:scale(1);}
+            10%,30%{transform:scale(1.05);}
+            20%,40%{transform:scale(1);}
         }
 
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            10%, 30% {
-                transform: scale(1.05);
-            }
-            20%, 40% {
-                transform: scale(1);
-            }
+        .photo-container{
+            width:100%;
+            max-width: 420px;
+            margin: 0 auto 18px;
+            position:relative;
+            border-radius: 24px;
+            overflow:hidden;
+            box-shadow: 0 14px 46px rgba(255,105,180,0.32);
+            transition: transform 0.25s ease;
+        }
+        .photo-container img{
+            width:100%;
+            height:auto;
+            display:block;
+        }
+        .photo-container:active{
+            transform: scale(0.99);
         }
 
-        /* Photo container */
-        .photo-container {
-            width: 100%;
-            max-width: 350px;
-            margin: 0 auto 30px;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
-            transition: all 0.5s ease;
-        }
-
-        .photo-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .photo-container:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Message text */
-        .message {
-            font-size: clamp(16px, 4vw, 20px);
+        .message{
+            font-size: clamp(18px, 4.8vw, 24px);
             color: var(--dark-pink);
-            margin-bottom: 40px;
-            min-height: 30px;
-            font-weight: 500;
+            margin: 12px 0 26px;
+            min-height: 36px;
+            font-weight: 650;
+            letter-spacing: 0.2px;
+            padding: 0 10px;
             transition: all 0.3s ease;
         }
-
-        .message.shake {
-            animation: shake 0.5s ease;
+        .message.shake{ animation: shake 0.5s ease; }
+        @keyframes shake{
+            0%,100%{transform:translateX(0);}
+            25%{transform:translateX(-10px);}
+            75%{transform:translateX(10px);}
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+        .buttons-container{
+            display:flex;
+            gap: 16px;
+            justify-content:center;
+            align-items:center;
+            flex-wrap:wrap;
+            position:relative;
+            min-height: 150px;
+            margin-bottom: 16px;
+            padding-bottom: 6px;
         }
 
-        /* Buttons container */
-        .buttons-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            position: relative;
-            min-height: 120px;
-            margin-bottom: 30px;
-        }
-
-        /* Base button styles */
-        .btn {
-            font-size: clamp(18px, 4.5vw, 24px);
-            font-weight: 600;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            min-width: 120px;
+        .btn{
+            font-size: clamp(20px, 5.2vw, 28px);
+            font-weight: 800;
+            padding: 18px 44px;
+            border:none;
+            border-radius: 999px;
+            cursor:pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+            min-width: 150px;
+            min-height: 58px; /* καλύτερο tap target */
             touch-action: manipulation;
-            user-select: none;
+            user-select:none;
         }
 
-        /* Yes button */
-        .btn-yes {
+        .btn-yes{
             background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
-            color: white;
+            color:white;
             animation: pulse 2s ease-in-out infinite;
-            position: relative;
-            overflow: visible;
+            position:relative;
+            overflow:visible;
         }
-
-        .btn-yes::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
-            opacity: 0;
-            pointer-events: none;
+        @keyframes pulse{
+            0%,100%{ transform:scale(1); box-shadow:0 10px 28px rgba(255,20,147,0.28);}
+            50%{ transform:scale(1.05); box-shadow:0 14px 36px rgba(255,20,147,0.42);}
         }
+        .btn-yes:active{ transform: scale(0.96); }
 
-        .btn-yes:hover::before {
-            width: 300px;
-            height: 300px;
-            opacity: 0;
+        /* IMPORTANT: start as relative, go absolute after first No click (JS) */
+        .btn-no{
+            background:white;
+            color: var(--dark-pink);
+            border: 3px solid var(--secondary-pink);
+            position:relative;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, left 0s, top 0s;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
         }
+        .btn-no:active{ transform: scale(0.96); }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 5px 20px rgba(255, 20, 147, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 8px 30px rgba(255, 20, 147, 0.5);
-            }
-        }
-
-        .btn-yes:active {
-            transform: scale(0.95);
-        }
-
-        /* Sparkle particles on hover */
-        .sparkle {
-            position: fixed;
-            pointer-events: none;
-            font-size: 20px;
-            z-index: 1000;
+        .sparkle{
+            position:fixed;
+            pointer-events:none;
+            font-size:22px;
+            z-index:1000;
             animation: sparkle-float 1s ease-out forwards;
         }
-
-        @keyframes sparkle-float {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(0);
-            }
-            50% {
-                transform: translateY(-30px) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-60px) scale(0.5);
-            }
+        @keyframes sparkle-float{
+            0%{ opacity:1; transform: translateY(0) scale(0); }
+            50%{ transform: translateY(-30px) scale(1); }
+            100%{ opacity:0; transform: translateY(-60px) scale(0.5); }
         }
 
-        /* No button */
-        .btn-no {
-            background: white;
-            color: var(--dark-pink);
-            border: 2px solid var(--secondary-pink);
-            position: absolute;
-            transition: all 0.3s ease, left 0s, top 0s;
-        }
-
-        .btn-no:hover {
-            background: var(--secondary-pink);
-            transform: scale(1.05);
-        }
-
-        .btn-no:active {
-            transform: scale(0.95);
-        }
-
-        /* Audio controls */
-        .audio-controls {
+        .audio-controls{
             position: fixed;
-            top: calc(20px + var(--safe-area-top));
-            right: 20px;
+            top: calc(14px + var(--safe-area-top));
+            right: 14px;
             z-index: 100;
         }
 
-        .audio-btn {
+        .audio-btn{
             background: white;
-            border: 2px solid var(--secondary-pink);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            border: 3px solid var(--secondary-pink);
+            border-radius: 999px;
+            width: 78px;
+            height: 78px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            font-size: 34px;
+            box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            touch-action: manipulation;
         }
 
-        .audio-btn:active {
-            transform: scale(0.9);
+        .audio-btn:active{ transform: scale(0.94); }
+
+        .audio-btn.is-on{
+            box-shadow: 0 16px 36px rgba(255,20,147,0.26);
+            border-color: var(--dark-pink);
         }
 
-        /* Celebration overlay */
-        .celebration-overlay {
+        /* μικρό “badge” για να καταλαβαίνει τι να κάνει */
+        .audio-hint{
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .celebration-overlay.active {
-            display: flex;
-        }
-
-        .celebration-message {
-            font-size: clamp(32px, 8vw, 56px);
+            top: calc(98px + var(--safe-area-top));
+            right: 14px;
+            z-index: 100;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--secondary-pink);
             color: var(--dark-pink);
-            margin-bottom: 30px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+            max-width: 180px;
+        }
+        .audio-hint.hidden{ display:none; }
+
+        .celebration-overlay{
+            position:fixed; inset:0;
+            background: rgba(255,255,255,0.95);
+            display:none;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            z-index:1000;
+            animation: fadeIn 0.5s ease;
+            padding: 20px;
+        }
+        .celebration-overlay.active{ display:flex; }
+        .celebration-message{
+            font-size: clamp(34px, 9vw, 62px);
+            color: var(--dark-pink);
+            margin-bottom: 18px;
             animation: bounceIn 0.8s ease;
+            text-align:center;
+            padding: 0 10px;
+        }
+        @keyframes bounceIn{
+            0%{ transform:scale(0); opacity:0;}
+            50%{ transform:scale(1.2);}
+            100%{ transform:scale(1); opacity:1;}
         }
 
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        #confettiCanvas{
+            position:fixed; inset:0;
+            width:100%;
+            height:100%;
+            pointer-events:none;
+            z-index:999;
         }
 
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--primary-pink);
-            position: absolute;
-            animation: confetti-fall 3s linear forwards;
-        }
-
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Canvas for confetti */
-        #confettiCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        /* Hidden state */
-        .hidden {
-            display: none !important;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .btn {
-                padding: 15px 30px;
-                min-width: 100px;
-            }
-
-            .buttons-container {
-                gap: 15px;
-            }
+        @media (max-width:480px){
+            body{ padding-left: 14px; padding-right: 14px; }
+            .photo-container{ max-width: 440px; }
+            .btn{ min-width: 160px; padding: 18px 46px; }
+            .buttons-container{ min-height: 170px; }
         }
     </style>
 </head>
+
 <body>
-<!-- Floating hearts background -->
 <div class="floating-hearts" id="floatingHearts"></div>
 
-<!-- Audio controls -->
 <div class="audio-controls">
-    <button class="audio-btn" id="audioBtn" aria-label="Toggle music">🔇</button>
+    <button class="audio-btn" id="audioBtn" aria-label="Start music">🎵</button>
 </div>
+<div class="audio-hint" id="audioHint">Tap anywhere to start music 🎶</div>
 
-<!-- Main container -->
 <div class="container">
     <h1>Will you be my Valentine? 💕</h1>
 
-    <!-- Photo -->
     <div class="photo-container" id="photoContainer">
-        <!--
-            ΑΛΛΑΞΕ ΤΗ ΦΩΤΟΓΡΑΦΙΑ ΕΔΩ:
-            Βάλε το δικό σου URL ή data URL στο src=""
-        -->
-        <img id="mainPhoto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect fill='%23ffe0f0' width='400' height='400'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='60' fill='%23ff69b4'%3E❤️%3C/text%3E%3Ctext x='50%25' y='65%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='%23ff1493'%3EYour Photo Here%3C/text%3E%3C/svg%3E" alt="Valentine photo">
+        <img id="mainPhoto"
+             src="assets/zentangle.jpg"
+             alt="Valentine photo"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ffe0f0%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22%23ff69b4%22%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22%23ff1493%22%3EAdd assets/main-image.jpg%3C/text%3E%3C/svg%3E'">
     </div>
 
-    <!-- Message -->
     <div class="message" id="message"></div>
 
-    <!-- Buttons -->
     <div class="buttons-container" id="buttonsContainer">
         <button class="btn btn-yes" id="yesBtn">Yes! 💖</button>
         <button class="btn btn-no" id="noBtn">No</button>
     </div>
 </div>
 
-<!-- Celebration overlay -->
 <div class="celebration-overlay" id="celebrationOverlay">
     <div class="celebration-message" id="celebrationMessage">Yay! 💕✨</div>
     <div class="photo-container">
-        <!--
-            ΑΛΛΑΞΕ ΤΗ ΦΩΤΟΓΡΑΦΙΑ "CELEBRATION" ΕΔΩ:
-            Αυτή θα εμφανιστεί όταν πατήσει "Yes"
-        -->
-        <img id="celebrationPhoto" src="C:\Users\t.andronikou\Downloads\final image.jpg" alt="Celebration photo">
+        <img id="celebrationPhoto"
+             src="assets/final-image.jpg"
+             alt="Celebration photo"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ffe0f0%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22%23ff1493%22%3E%F0%9F%8E%89%3C/text%3E%3Ctext x=%2250%25%22 y=%2265%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22%23ff1493%22%3EAdd assets/final-image.jpg%3C/text%3E%3C/svg%3E'">
     </div>
 </div>
 
-<!-- Confetti canvas -->
 <canvas id="confettiCanvas"></canvas>
 
-<!-- Background music (hidden audio element) -->
-<!--
-    ΑΛΛΑΞΕ ΤΟ BACKGROUND MUSIC ΕΔΩ:
-    Βάλε το δικό σου MP3/audio URL
-    Για mobile autoplay, χρειάζεται user interaction πρώτα
--->
-<audio id="bgMusic" loop>
-    <!-- Προσθέστε το δικό σας αρχείο ήχου εδώ -->
-    <!-- <source src="your-music-file.mp3" type="audio/mpeg"> -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="assets/valentine.mp3" type="audio/mpeg" />
 </audio>
 
 <script>
-    // ============================================
-    // CONFIGURATION - ΑΛΛΑΞΕ ΤΑ ΚΕΙΜΕΝΑ ΕΔΩ
-    // ============================================
     const CONFIG = {
-        // Μηνύματα που εμφανίζονται όταν πατάει "No"
         noMessages: [
             "Σίγουρα; 🥺",
             "Μήπως να το ξανασκεφτείς; 💭",
             "Πλιιιιζ; 🙏",
-            "Το κουμπί Yes είναι πιο ωραίο! ✨",
+            "Πάτα Yes αν είσαι ΠΑΟ! ✨",
             "Δεν θα το μετανιώσεις! 💕",
             "Seriously? 😢",
             "Okay fine... αλλά κοίτα πόσο μικρό έγινε! 🔍",
             "Τελευταία προειδοποίηση! ⚠️",
-            "Θα το πας μέχρι τέλος; 😤",
             "Fine... ΟΚ δες τι θα γίνει τώρα! 😏"
         ],
-
-        // Τελικό μήνυμα μετά από πολλά No
         finalNoMessage: "Αφού επιμένεις... το κουμπί No θα γίνει YES! 😈",
-
-        // Τελικό μήνυμα celebration
         celebrationMessage: "Yay! Best Valentine Ever! 💕✨🎉",
 
-        // Ρυθμίσεις για το "φεύγον" No button
-        noButtonShrinkFactor: 0.82, // Πόσο μικραίνει κάθε φορά
-        noButtonMinScale: 0.25, // Minimum μέγεθος
-        maxNoClicks: 10, // Μετά από τόσα clicks, το No γίνεται Yes
+        noButtonShrinkFactor: 0.82,
+        noButtonMinScale: 0.25,
+        maxNoClicks: 10,
 
-        // Hover dodge - το No φεύγει αν πλησιάσεις με το ποντίκι
         enableHoverDodge: true,
-        hoverDodgeDistance: 80, // Απόσταση σε pixels
+        hoverDodgeDistance: 80
     };
 
-    // ============================================
-    // STATE
-    // ============================================
     let noClickCount = 0;
     let audioEnabled = false;
     let noButtonScale = 1;
-    let isNoButtonTrapped = false; // Για το τελικό "trap"
-    let dodgeInterval = null;
+    let isNoButtonTrapped = false;
 
-    // ============================================
-    // ELEMENTS
-    // ============================================
     const yesBtn = document.getElementById('yesBtn');
     const noBtn = document.getElementById('noBtn');
     const message = document.getElementById('message');
     const celebrationOverlay = document.getElementById('celebrationOverlay');
     const celebrationMessage = document.getElementById('celebrationMessage');
     const audioBtn = document.getElementById('audioBtn');
+    const audioHint = document.getElementById('audioHint');
     const bgMusic = document.getElementById('bgMusic');
     const buttonsContainer = document.getElementById('buttonsContainer');
     const confettiCanvas = document.getElementById('confettiCanvas');
     const ctx = confettiCanvas.getContext('2d');
 
-    // ============================================
-    // INITIALIZATION
-    // ============================================
-    function init() {
-        createFloatingHearts();
-        setupEventListeners();
-        setupCanvas();
-        positionNoButtonInitial();
+    // ---- AUDIO: one-tap start (mobile-friendly) ----
+    async function startMusic() {
+        if (audioEnabled) return;
 
-        // Try to enable audio on first user interaction
-        document.body.addEventListener('click', enableAudioOnFirstClick, { once: true });
-    }
+        const sourceEl = bgMusic.querySelector('source');
+        const src = sourceEl && sourceEl.getAttribute('src');
+        if (!src) {
+            console.log('No audio source set.');
+            return;
+        }
 
-    function enableAudioOnFirstClick() {
-        const hasAudioSource = bgMusic.querySelector('source');
-        if (hasAudioSource) {
+        try {
+            // Φορτώνουμε νωρίς, και κάνουμε play σε gesture-valid event (pointerdown/touchstart).
             bgMusic.load();
-            console.log('Audio ready to play');
-        } else {
-            console.log('No audio source - add your MP3 file to enable music');
+
+            // iOS-friendly: start muted, then unmute
+            bgMusic.muted = true;
+
+            // Μικρό "διπλό attempt" μέσα στο ΙΔΙΟ gesture για browsers που κολλάνε στο πρώτο
+            await bgMusic.play();
+            bgMusic.muted = false;
+
+            audioEnabled = true;
+            audioBtn.textContent = '🔊';
+            audioBtn.classList.add('is-on');
+            audioHint.classList.add('hidden');
+        } catch (e) {
+            // κρατάμε audioEnabled=false για να ξαναδοκιμάσει στο επόμενο tap
+            audioEnabled = false;
+            audioBtn.textContent = '🎵';
+            audioBtn.classList.remove('is-on');
+            console.log('Audio play failed:', e);
         }
     }
 
-    // ============================================
-    // FLOATING HEARTS BACKGROUND
-    // ============================================
+    // ---- INIT ----
+    function init() {
+        createFloatingHearts();
+        setupCanvas();
+        setupEventListeners();
+        positionNoButtonInitial();
+
+        // Το ΠΙΟ σημαντικό: πρώτος “touch/pointerdown” οπουδήποτε -> startMusic
+        // (αυτό πρακτικά εξαφανίζει το “θέλει δεύτερο tap”)
+        document.addEventListener('pointerdown', startMusic, { once: true });
+        document.addEventListener('touchstart', startMusic, { once: true, passive: true });
+    }
+
     function createFloatingHearts() {
         const heartsContainer = document.getElementById('floatingHearts');
         const heartCount = 15;
-
         for (let i = 0; i < heartCount; i++) {
             const heart = document.createElement('div');
             heart.className = 'heart-bg';
@@ -542,37 +413,26 @@
         }
     }
 
-    // ============================================
-    // EVENT LISTENERS
-    // ============================================
     function setupEventListeners() {
         yesBtn.addEventListener('click', handleYesClick);
         noBtn.addEventListener('click', handleNoClick);
-        audioBtn.addEventListener('click', toggleAudio);
 
-        // Hover dodge για desktop
+        // Για audio: pointerdown (πιο αξιόπιστο σε iOS από click)
+        audioBtn.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            startMusic();
+        }, { passive: false });
+
+        // Hover dodge desktop
         if (CONFIG.enableHoverDodge) {
             document.addEventListener('mousemove', handleMouseMove);
         }
 
-        // Sparkles on Yes button hover
-        yesBtn.addEventListener('mouseenter', createSparkles);
-        yesBtn.addEventListener('mousemove', createSparklesOnMove);
-    }
-
-    // ============================================
-    // SPARKLE EFFECTS
-    // ============================================
-    function createSparkles() {
-        createSparkle();
-    }
-
-    let sparkleTimeout;
-    function createSparklesOnMove(e) {
-        if (sparkleTimeout) clearTimeout(sparkleTimeout);
-        sparkleTimeout = setTimeout(() => {
-            createSparkle(e.clientX, e.clientY);
-        }, 100);
+        // Sparkles on Yes hover (desktop)
+        yesBtn.addEventListener('mouseenter', () => createSparkle());
+        yesBtn.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.2) createSparkle(e.clientX, e.clientY);
+        });
     }
 
     function createSparkle(x, y) {
@@ -581,122 +441,75 @@
         sparkle.className = 'sparkle';
         sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
 
-        if (x && y) {
-            sparkle.style.left = x + (Math.random() - 0.5) * 40 + 'px';
-            sparkle.style.top = y + (Math.random() - 0.5) * 40 + 'px';
+        if (typeof x === 'number' && typeof y === 'number') {
+            sparkle.style.left = (x + (Math.random() - 0.5) * 40) + 'px';
+            sparkle.style.top  = (y + (Math.random() - 0.5) * 40) + 'px';
         } else {
             const rect = yesBtn.getBoundingClientRect();
-            sparkle.style.left = rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width + 'px';
-            sparkle.style.top = rect.top + rect.height / 2 + (Math.random() - 0.5) * rect.height + 'px';
+            sparkle.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * rect.width) + 'px';
+            sparkle.style.top  = (rect.top + rect.height / 2 + (Math.random() - 0.5) * rect.height) + 'px';
         }
 
         document.body.appendChild(sparkle);
-
-        setTimeout(() => {
-            sparkle.remove();
-        }, 1000);
+        setTimeout(() => sparkle.remove(), 1000);
     }
 
-    // ============================================
-    // HOVER DODGE - Το No φεύγει όταν πλησιάζει το ποντίκι
-    // ============================================
     function handleMouseMove(e) {
         if (isNoButtonTrapped || noClickCount === 0) return;
-
-        const noBtnRect = noBtn.getBoundingClientRect();
-        const noBtnCenterX = noBtnRect.left + noBtnRect.width / 2;
-        const noBtnCenterY = noBtnRect.top + noBtnRect.height / 2;
-
-        const distance = Math.sqrt(
-            Math.pow(e.clientX - noBtnCenterX, 2) +
-            Math.pow(e.clientY - noBtnCenterY, 2)
-        );
-
+        const r = noBtn.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const distance = Math.hypot(e.clientX - cx, e.clientY - cy);
         if (distance < CONFIG.hoverDodgeDistance) {
             moveNoButtonAway(e.clientX, e.clientY);
         }
     }
-
-    // ============================================
-    // YES BUTTON HANDLER
-    // ===============================================
 
     function handleYesClick() {
         celebrationMessage.textContent = CONFIG.celebrationMessage;
         celebrationOverlay.classList.add('active');
         createConfetti();
 
-        // Play audio if enabled
-        if (audioEnabled && bgMusic.querySelector('source')) {
-            const playPromise = bgMusic.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.log('Celebration audio play failed:', e));
-            }
-        }
+        // Αν για κάποιο λόγο δεν ξεκίνησε, εδώ ξαναπροσπαθεί
+        if (!audioEnabled) startMusic();
 
-        // Add some sparkle to the yes button
         yesBtn.style.animation = 'none';
-        setTimeout(() => {
-            yesBtn.style.animation = 'pulse 2s ease-in-out infinite';
-        }, 10);
+        setTimeout(() => { yesBtn.style.animation = 'pulse 2s ease-in-out infinite'; }, 10);
     }
 
-    // ============================================
-    // NO BUTTON HANDLER
-    // ============================================
     function handleNoClick(e) {
-        // Prevent default if it's the final trap
-        if (e) e.preventDefault();
-
+        e?.preventDefault();
         noClickCount++;
 
-        // Check if max clicks reached - TRAP THE USER! 😈
         if (noClickCount >= CONFIG.maxNoClicks) {
             trapNoButton();
             return;
         }
 
-        // Show message with shake animation
-        const messageIndex = Math.min(noClickCount - 1, CONFIG.noMessages.length - 1);
-        const messageText = CONFIG.noMessages[messageIndex];
-        message.textContent = messageText;
+        const idx = Math.min(noClickCount - 1, CONFIG.noMessages.length - 1);
+        message.textContent = CONFIG.noMessages[idx];
         message.classList.add('shake');
         setTimeout(() => message.classList.remove('shake'), 500);
 
-        // Shrink the No button
-        noButtonScale = Math.max(
-            noButtonScale * CONFIG.noButtonShrinkFactor,
-            CONFIG.noButtonMinScale
-        );
-
-        // Move to random position (avoiding Yes button)
+        noButtonScale = Math.max(noButtonScale * CONFIG.noButtonShrinkFactor, CONFIG.noButtonMinScale);
         moveNoButton();
 
-        // Make Yes button bigger (opposite effect)
         const yesScale = 1 + (noClickCount * 0.08);
         yesBtn.style.transform = `scale(${Math.min(yesScale, 1.6)})`;
 
-        // Add wobble to Yes button for attention
         yesBtn.style.animation = 'none';
-        setTimeout(() => {
-            yesBtn.style.animation = 'pulse 2s ease-in-out infinite';
-        }, 10);
+        setTimeout(() => { yesBtn.style.animation = 'pulse 2s ease-in-out infinite'; }, 10);
     }
 
-    // ============================================
-    // TRAP NO BUTTON - Μετά από πολλά No, το κουμπί αλλάζει!
-    // ============================================
     function trapNoButton() {
         isNoButtonTrapped = true;
 
-        // Show dramatic message
         message.textContent = CONFIG.finalNoMessage;
         message.style.color = '#ff1493';
         message.style.fontSize = '24px';
         message.style.fontWeight = 'bold';
         message.classList.add('shake');
 
-        // Transform No button to Yes!
         setTimeout(() => {
             noBtn.textContent = 'Yes! 💕';
             noBtn.style.background = 'linear-gradient(135deg, #ff69b4, #ff1493)';
@@ -705,129 +518,67 @@
             noBtn.style.transform = 'translate(-50%, -50%) scale(1.2)';
             noBtn.style.animation = 'pulse 1s ease-in-out infinite';
 
-            // Update click handler
             noBtn.removeEventListener('click', handleNoClick);
             noBtn.addEventListener('click', handleYesClick);
         }, 1500);
     }
 
-    // ============================================
-    // NO BUTTON POSITIONING - ΑΡΧΙΚΗ ΘΕΣΗ
-    // ============================================
     function positionNoButtonInitial() {
-        // Position on the right side, NOT overlapping with Yes
         noBtn.style.position = 'relative';
         noBtn.style.left = 'auto';
         noBtn.style.top = 'auto';
         noBtn.style.transform = 'none';
     }
 
-    // ============================================
-    // NO BUTTON POSITIONING - ΤΥΧΑΙΑ ΘΕΣΗ (αποφεύγει Yes)
-    // ============================================
     function moveNoButton() {
-        // Switch to absolute positioning after first click
         if (noClickCount === 1) {
             noBtn.style.position = 'absolute';
         }
 
         const container = buttonsContainer.getBoundingClientRect();
-        const yesBtnRect = yesBtn.getBoundingClientRect();
-        const noBtnWidth = noBtn.offsetWidth * noButtonScale;
-        const noBtnHeight = noBtn.offsetHeight * noButtonScale;
+        const yesRect = yesBtn.getBoundingClientRect();
 
-        let randomX, randomY, attempts = 0;
+        let x, y, attempts = 0;
         const maxAttempts = 50;
-        const minDistance = 120; // Minimum distance from Yes button
+        const minDistance = 130;
 
         do {
-            randomX = Math.random() * (container.width - 100) + 50;
-            randomY = Math.random() * (container.height - 100) + 50;
+            x = Math.random() * (container.width - 120) + 60;
+            y = Math.random() * (container.height - 120) + 60;
 
-            // Calculate distance from Yes button
-            const yesCenterX = yesBtnRect.left - container.left + yesBtnRect.width / 2;
-            const yesCenterY = yesBtnRect.top - container.top + yesBtnRect.height / 2;
-            const distance = Math.sqrt(
-                Math.pow(randomX - yesCenterX, 2) +
-                Math.pow(randomY - yesCenterY, 2)
-            );
+            const yesCX = (yesRect.left - container.left) + yesRect.width / 2;
+            const yesCY = (yesRect.top  - container.top ) + yesRect.height / 2;
 
-            if (distance > minDistance) break;
+            const d = Math.hypot(x - yesCX, y - yesCY);
+            if (d > minDistance) break;
             attempts++;
         } while (attempts < maxAttempts);
 
-        noBtn.style.left = randomX + 'px';
-        noBtn.style.top = randomY + 'px';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top  = y + 'px';
         noBtn.style.transform = `translate(-50%, -50%) scale(${noButtonScale})`;
     }
 
-    // ============================================
-    // MOVE NO BUTTON AWAY FROM CURSOR
-    // ============================================
     function moveNoButtonAway(mouseX, mouseY) {
         const container = buttonsContainer.getBoundingClientRect();
-        const noBtnRect = noBtn.getBoundingClientRect();
+        const r = noBtn.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
 
-        // Calculate direction away from mouse
-        const noBtnCenterX = noBtnRect.left + noBtnRect.width / 2;
-        const noBtnCenterY = noBtnRect.top + noBtnRect.height / 2;
+        const angle = Math.atan2(cy - mouseY, cx - mouseX);
+        const moveDistance = 160;
 
-        const deltaX = noBtnCenterX - mouseX;
-        const deltaY = noBtnCenterY - mouseY;
-        const angle = Math.atan2(deltaY, deltaX);
+        let newX = (r.left - container.left) + Math.cos(angle) * moveDistance;
+        let newY = (r.top  - container.top ) + Math.sin(angle) * moveDistance;
 
-        // Move away
-        const moveDistance = 150;
-        let newX = (noBtnRect.left - container.left) + Math.cos(angle) * moveDistance;
-        let newY = (noBtnRect.top - container.top) + Math.sin(angle) * moveDistance;
-
-        // Keep within bounds
-        newX = Math.max(50, Math.min(container.width - 50, newX));
-        newY = Math.max(50, Math.min(container.height - 50, newY));
+        newX = Math.max(60, Math.min(container.width  - 60, newX));
+        newY = Math.max(60, Math.min(container.height - 60, newY));
 
         noBtn.style.left = newX + 'px';
-        noBtn.style.top = newY + 'px';
-        noBtn.style.transition = 'left 0.3s ease, top 0.3s ease';
+        noBtn.style.top  = newY + 'px';
+        noBtn.style.transition = 'left 0.25s ease, top 0.25s ease';
     }
 
-    // ============================================
-    // AUDIO CONTROLS
-    // ============================================
-
-    // ============================================
-    // AUDIO CONTROLS
-    // ============================================
-    function toggleAudio() {
-        // Check if audio source exists
-        const hasAudioSource = bgMusic.querySelector('source');
-        if (!hasAudioSource) {
-            console.log('No audio source provided - add <source> tag in HTML');
-            return;
-        }
-
-        audioEnabled = !audioEnabled;
-
-        if (audioEnabled) {
-            const playPromise = bgMusic.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    audioBtn.textContent = '🔊';
-                    console.log('Audio playing');
-                }).catch(e => {
-                    console.log('Audio play failed:', e);
-                    audioEnabled = false;
-                    audioBtn.textContent = '🔇';
-                });
-            }
-        } else {
-            bgMusic.pause();
-            audioBtn.textContent = '🔇';
-        }
-    }
-    // ============================================
-    // CONFETTI ANIMATION
-    // ============================================
     function setupCanvas() {
         confettiCanvas.width = window.innerWidth;
         confettiCanvas.height = window.innerHeight;
@@ -839,76 +590,57 @@
     }
 
     function createConfetti() {
-        const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ff69b4', '#ffc0cb'];
-        const shapes = ['❤️', '💕', '💖', '💗', '💝', '✨', '🎉'];
+        const shapes = ['❤️','💕','💖','💗','💝','✨','🎉'];
         const particles = [];
-        const particleCount = 150; // More confetti!
+        const particleCount = 160;
 
-        // Create particles
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * confettiCanvas.width,
                 y: -20 - Math.random() * 100,
-                size: Math.random() * 25 + 15,
+                size: Math.random() * 26 + 16,
                 speedY: Math.random() * 3 + 2,
                 speedX: Math.random() * 6 - 3,
                 rotation: Math.random() * 360,
                 rotationSpeed: Math.random() * 15 - 7.5,
-                color: colors[Math.floor(Math.random() * colors.length)],
                 shape: shapes[Math.floor(Math.random() * shapes.length)],
                 opacity: 1
             });
         }
 
-        // Animate particles
-        function animateConfetti() {
+        function animate() {
             ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            let active = 0;
 
-            let activeParticles = 0;
+            for (const p of particles) {
+                if (p.y < confettiCanvas.height + 60 && p.opacity > 0) {
+                    active++;
 
-            particles.forEach(particle => {
-                if (particle.y < confettiCanvas.height + 50 && particle.opacity > 0) {
-                    activeParticles++;
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    p.rotation += p.rotationSpeed;
 
-                    // Update position
-                    particle.y += particle.speedY;
-                    particle.x += particle.speedX;
-                    particle.rotation += particle.rotationSpeed;
+                    if (p.y > confettiCanvas.height - 180) p.opacity -= 0.02;
 
-                    // Fade out near bottom
-                    if (particle.y > confettiCanvas.height - 150) {
-                        particle.opacity -= 0.02;
-                    }
-
-                    // Draw particle
                     ctx.save();
-                    ctx.translate(particle.x, particle.y);
-                    ctx.rotate(particle.rotation * Math.PI / 180);
-                    ctx.globalAlpha = Math.max(0, particle.opacity);
-
-                    // Draw emoji
-                    ctx.font = `${particle.size}px Arial`;
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.globalAlpha = Math.max(0, p.opacity);
+                    ctx.font = `${p.size}px Arial`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(particle.shape, 0, 0);
-
+                    ctx.fillText(p.shape, 0, 0);
                     ctx.restore();
                 }
-            });
-
-            if (activeParticles > 0) {
-                requestAnimationFrame(animateConfetti);
-            } else {
-                ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
             }
+
+            if (active > 0) requestAnimationFrame(animate);
+            else ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
         }
 
-        animateConfetti();
+        animate();
     }
 
-    // ============================================
-    // START
-    // ============================================
     init();
 </script>
 </body>
